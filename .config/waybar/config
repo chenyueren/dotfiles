@@ -6,6 +6,6 @@
     "modules-right": [],
 
     "clock": {
-        "format-alt": "{:%b %d,$a  %H:%M}"
+        "format-alt": "{:%b %d,%a  %H:%M}"
     }
 }
