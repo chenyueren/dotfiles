@@ -1,0 +1,6 @@
+if [[ $TERM == 'kitty' ]];then
+    alias icat="/usr/bin/kitty +kitten icat"
+    alias ssh="/usr/bin/kitty +kitten ssh"
+    alias ls="/usr/bin/ls --color=auto --hyperlink=auto"
+fi
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/.git --work-tree=$HOME"
