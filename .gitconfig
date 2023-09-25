@@ -1,3 +1,5 @@
 [user]
 	name = chenyueren
 	email = chen.yaojen@gmail.com
+[core]
+	editor = /usr/bin/vim
