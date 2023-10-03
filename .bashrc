@@ -9,6 +9,4 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
-# --------------------
-[[ $TERM == 'xterm-kitty' ]] && export TERM=kitty
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/.git --work-tree=$HOME"
+source ~/.config/aliases
