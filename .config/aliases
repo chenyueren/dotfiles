@@ -1,0 +1,8 @@
+if [ $TERM == 'xterm-kitty' ];then
+    export TERM=kitty
+    alias icat="/usr/bin/kitty kitten icat"
+    alias ssh="/usr/bin/kitty kitten ssh"
+fi
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/.git --work-tree=$HOME"
+alias ls="ls --color"
+alias grep="grep --color"
