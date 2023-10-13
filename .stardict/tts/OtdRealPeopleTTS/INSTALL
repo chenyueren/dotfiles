@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+import os
+import string
+
+installdir = '/usr/share/OtdRealPeopleTTS/'
+if not os.path.exists(installdir):
+    os.system('sudo mkdir '+installdir )
+    pass
+
+mydir = os.getcwd()
+for subdir in string.ascii_uppercase:
+    mypath = os.path.join(mydir, subdir)
+    os.chdir(mypath)
+    for filename in os.listdir(mypath):
+        if filename[-4:] == '.mp3':
+            cmd = 'mpg321 -w '+filename[:-4].lower().replace(' ','')+'.wav "'\
+                    + filename+'"'
+            print cmd
+            os.system(cmd)
+    installsubdir = os.path.join(installdir,subdir.lower())
+    if not os.path.exists(installsubdir):
+        os.system('sudo mkdir '+installsubdir )
+    os.system('sudo mv *.wav '+installsubdir)
+

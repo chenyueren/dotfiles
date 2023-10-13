@@ -1,0 +1,11 @@
+Install: Run ./INSTALL
+
+2.9G disk space is needed!
+
+Notice:
+
+python and mpg321 is needed!
+Try:
+sudo apt-get install python mpg321
+
+Wav files will be installed at: /usr/share/OtdRealPeopleTTS/
