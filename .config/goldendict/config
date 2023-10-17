@@ -7,6 +7,8 @@
  </sounddirs>
  <dictionaryOrder id="0" name="">
   <dictionary name="tts">107eaa804a520bf5eb1f9fc676a1da14</dictionary>
+  <dictionary name="朗道漢英字典5.0">daf6350e2966d33ddcf38b7d72b0f2eb</dictionary>
+  <dictionary name="朗道英漢字典5.0">730721d24720d90dcd45ef1d970a2327</dictionary>
   <mutedDictionaries/>
  </dictionaryOrder>
  <inactiveDictionaries id="0" name="">
@@ -17,7 +19,9 @@
   <mutedDictionaries/>
  </inactiveDictionaries>
  <groups nextId="1"/>
- <hunspell dictionariesPath=""/>
+ <hunspell dictionariesPath="/home/chenyueren/.stardict/myspell">
+  <enabled>en_US</enabled>
+ </hunspell>
  <transliteration>
   <enableRussianTransliteration>0</enableRussianTransliteration>
   <enableGermanTransliteration>0</enableGermanTransliteration>
@@ -187,7 +191,7 @@
  <mainWindowGeometry>AdnQywADAAAAAAPFAAAALAAAB3MAAAQrAAADxQAAACwAAAdzAAAEKwAAAAAAAAAAB4AAAAPFAAAALAAAB3MAAAQr</mainWindowGeometry>
  <dictInfoGeometry></dictInfoGeometry>
  <inspectorGeometry></inspectorGeometry>
- <dictionariesDialogGeometry>AdnQywADAAAAAAMoAAAA7QAAByQAAANNAAADKAAAAO0AAAckAAADTQAAAAAAAAAAB4AAAAMoAAAA7QAAByQAAANN</dictionariesDialogGeometry>
+ <dictionariesDialogGeometry>AdnQywADAAAAAAOCAAAB1gAAB34AAAQ2AAADggAAAdYAAAd+AAAENgAAAAAAAAAAB4AAAAOCAAAB1gAAB34AAAQ2</dictionariesDialogGeometry>
  <timeForNewReleaseCheck></timeForNewReleaseCheck>
  <skippedRelease></skippedRelease>
  <showingDictBarNames>0</showingDictBarNames>
