@@ -1,0 +1,244 @@
+{
+    "height": 32,
+    // 左側工具列
+    "modules-left": ["hyprland/workspaces","custom/rarrow1","wlr/taskbar","custom/rarrow2"],
+
+    // 中間工具列
+    "modules-center": [],
+
+    // 右側工具列
+    "modules-right": ["custom/larrow6","power","custom/larrow5","battery","custom/larrow4","bluetooth","custom/larrow3","pulseaudio","custom/larrow2","clock","custom/larrow1","tray"],
+//--------------------------------------------------------------------------------
+    // Modules
+        // taskbar
+        "wlr/taskbar": {
+            "format": "{icon} {title}",
+            "icon-size": 24,
+            // "icon-theme": "Numix-Circle",
+            "tooltip-format": "{title}",
+            "on-click": "activate",
+            "on-click-middle": "close",
+            "ignore-list": []
+            
+        },
+//--------------------------------------------------------------------------------
+        // workspaces
+        "hyprland/workspaces": {
+            "active-only": true, // 僅顯示 active workspace 
+            "format": "{name}: {icon}",
+            "format-icons": {
+                "1": " ",
+                "2": " ",
+                "3": " ",
+                "4": " ",
+                "5": " ",
+                "active": " ",
+                "default": " "
+            },
+            // 指定螢幕包含哪些工作空間（桌面），或是反過來工作空間（桌面）存在哪些螢幕上
+            "persistent-workspaces": {
+                "*": 5, // 5 workspaces by default on every monitor
+                // "HDMI-A-1": 3, // but only three on HDMI-A-1
+                // "1": ["DP-1","HDMI-A-1"],
+            }
+        },
+
+//-------------------------------------------------------------------------------- 
+        // window
+        "hyprland/window": {
+            "format": "👉 {}",
+            "rewrite": {
+                "(.*) — Mozilla Firefox": "🌎 $1",
+                "(.*) - fish": "> [$1]"
+            },
+            "separate-outputs": true
+        },
+
+//--------------------------------------------------------------------------------
+    // System Monitor
+        // cpu 中央處理單元
+        "cpu": {
+            "format": " {}%",
+            "on-click": "btop"
+        },
+        // memory 記憶體
+        "memory": {
+            "format": " {: >3}%",
+            "on-click": "btop"
+        },
+
+        // network 網路
+        "network": {
+            "interface": "enp4s0",
+            "format": "{ifname}",
+            "format-wifi": "{essid} ({signalStrength}%)  ",
+            "format-ethernet": "{ipaddr}/{cidr} ",
+            "format-disconnected": "", //An empty format will hide the module.
+            "tooltip-format": "{ifname} via {gwaddr} ",
+            "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
+            "tooltip-format-ethernet": "{ifname}  ",
+            "tooltip-format-disconnected": "Disconnected",
+            "max-length": 50
+        },
+
+        // temperature  溫度
+        "temperature": {
+            "critical-threshold": 80,
+            "format-critical": "{temperatureC}C ",
+            "format": "{temperatureC} C "
+        },
+
+        // power 電力
+        "power": {
+
+        },
+
+        // battery 電池
+        "battery": {
+            "bat": "BAT2",
+            "interval": 60,
+            "states": {
+                "warning": 30,
+                "critical": 15
+            },
+            "format": "{capacity}% {icon}",
+            "format-icons": [" ", " ", " ", " ", " "],
+            "max-length": 25
+        },
+//-------------------------------------------------------------------------------- 
+        // mpd
+        "mpd": {
+            "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+            "format-disconnected": "Disconnected ",
+            "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+            "unknown-tag": "N/A",
+            "interval": 2,
+            "consume-icons": {
+                "on": " "
+            },
+            "random-icons": {
+                "off": "<span color=\"#f53c3c\"></span> ",
+                "on": " "
+            },
+            "repeat-icons": {
+                "on": " "
+            },
+            "single-icons": {
+                "on": " 1 "
+            },
+            "state-icons": {
+                "paused": "",
+                "playing": ""
+            },
+            "tooltip-format": "MPD (connected)",
+            "tooltip-format-disconnected": "MPD (disconnected)"
+        },
+
+//-------------------------------------------------------------------------------- 
+        // wireplumber
+        "wireplumber": {
+            "format": "{volume}% {icon}",
+            "format-muted": " ",
+            "on-click": "helvum",
+            "format-icons": [" ", " ", " "]
+        },
+
+//-------------------------------------------------------------------------------- 
+        // keyboard-state
+        "keyboard-state": {
+            "numlock": true,
+            "capslock": true,
+            "format": {
+                "numlock": "Num {icon}",
+                "capslock": "Cap {icon}"
+            },
+            "format-icons": {
+                "locked": " ",
+                "unlocked": " "
+            }
+        },
+
+//-------------------------------------------------------------------------------- 
+        // bluetooth
+        "bluetooth": {
+            "format": " {status}",
+            "format-connected": " {device_alias}",
+            "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+            // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+            "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+            "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+            "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+        },
+//-------------------------------------------------------------------------------- 
+        // pulseaudio
+        "pulseaudio": {
+            "format": "{icon} {volume}%",
+            "format-bluetooth": "{icon}{volume}%",
+            "format-muted": "",
+            "format-icons": {
+                "headphone": " ",
+                "hands-free": " ",
+                "headset": " ",
+                "phone": " ",
+                "portable": " ",
+                "car": " ",
+                "default": [" ", " "]
+            },
+            "scroll-step": 1,
+            "on-click": "pavucontrol",
+            "ignored-sinks": ["Easy Effects Sink"]
+        },
+
+//--------------------------------------------------------------------------------
+        // clock
+        "clock": {
+            "timezone": "Asia/Taipei",
+            "format": "{: %H:%M:%S}",
+            "format-alt": "{: %Y-%m-%d   %H:%M:%S}",
+            "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        },
+
+//-------------------------------------------------------------------------------- 
+        // tray
+        "tray": {
+            "icon-size":24,
+            "spacing":10
+            
+        },
+//-------------------------------------------------------------------------------- 
+
+        "custom/rarrow1": {
+            "format": ""
+        },
+        "custom/rarrow2": {
+            "format": ""
+        },
+        "custom/rarrow3": {
+            "format": ""
+        },
+
+//-------------------------------------------------------------------------------- 
+
+        "custom/larrow1": {
+            "format": ""
+        },
+        "custom/larrow2": {
+            "format": ""
+        },
+        "custom/larrow3": {
+            "format": ""
+        },
+        "custom/larrow4": {
+            "format": ""
+        },
+        "custom/larrow5": {
+            "format": ""
+        },
+        "custom/larrow6": {
+            "format": ""
+        },
+        "custom/larrow7": {
+            "format": ""
+        }
+}

@@ -1,0 +1,142 @@
+#!/bin/sh
+
+
+system_type=$(uname -s)
+
+archlinux_update_all() {
+	sudo pacman -Suy --noconfirm
+}
+
+archlinux_install_yay() {
+	sudo pacman -S git fakeroot make gcc curl ansible less --noconfirm
+	cd /opt/
+	sudo git clone https://aur.archlinux.org/yay.git
+	sudo chown -R ${USER} yay
+	cd yay
+	makepkg -si
+	yay -Suy --noconfirm
+}
+
+vim_bootstrap() {
+	yay -S ctags fzf ripgrep --noconfirm
+	#curl -s 'https://vim-bootstrap.com/generate.vim' --data 'editor=vim&frameworks=vuejs&langs=javascript&langs=php&langs=html&langs=python' > ~/.vimrc
+	curl -s 'https://vim-bootstrap.com/generate.vim' --data 'editor=vim&langs=javascript&langs=html&langs=python' > ~/.vimrc
+	touch ~/.vimrc.local
+    ansible localhost -m lineinfile -a "path=~/.vimrc.local line='let g:airline_powerline_fonts = 1'"
+	ansible localhost -m lineinfile -a "path=~/.vimrc.local line='autocmd Filetype tf setlocal ts=2 sw=2 et'"
+	ansible localhost -m lineinfile -a "path=~/.vimrc.local line='autocmd Filetype yaml setlocal ts=2 sw=2 et'"
+	touch ~/.vimrc.local.bundles
+	ansible localhost -m lineinfile -a "path=~/.vimrc.local.bundles line='Plug \'tpope/vim-surround\''"
+	ansible localhost -m lineinfile -a "path=~/.vimrc.local.bundles line='Plug \'andrewstuart/vim-kubernetes\''"
+    vim -c 'PlugUpdate | qa'
+}
+
+mpd_bootstrap() {
+    yay -S mpd mpc ncmpcpp timidity --noconfirm
+    test -d ~/Music || mkdir ~/Music
+    mkdir ~/.config/mpd/playlists -p
+    touch ~/.config/mpd/{database,log,pid,state,sticker.sql}
+    cat << __END__ > ~/.config/mpd/mpd.conf
+db_file         "~/.config/mpd/database"
+log_file        "~/.config/mpd/log"
+
+music_directory     "~/Music"
+playlist_directory  "~/.config/mpd/playlists"
+pid_file            "~/.config/mpd/pid"
+state_file          "~/.config/mpd/state"
+sticker_file        "~/.config/mpd/sticker.sql"
+
+audio_output {
+    type "pipewire"
+    name "MPD Pipewire Output"
+}
+__END__
+}
+
+virtualization_tools() {
+    # KVM & QEMU
+    yay -S edk2-ovmf dmidecode libvirt openvswitch dnsmasq qemu-audio-spice qemu-chardev-spice qemu-hw-display-qxl qemu-hw-usb-host qemu-hw-usb-redirect qemu-hw-usb-smartcard qemu-img qemu-system-x86 qemu-system-x86-firmware virt-manager --noconfirm
+    sudo gpasswd -a ${USER} libvirt
+}
+
+system_tools() {
+    yay -S bluez bluez-utils bash-completion --noconfirm
+    sudo systemctl enable bluetooth --now
+}
+
+network_tools() {
+    yay -S socat bind ipset mtr --noconfirm
+}
+
+monitor_tools() {
+    yay -S btop  --noconfirm
+}
+
+security_tools() {
+    yay -S seahorse --noconfirm
+}
+
+office_tools() {
+    yay -S joplin-appimage --noconfirm
+}
+
+archlinux_base_install() {
+	archlinux_update_all
+	# yay
+	command -v yay || archlinux_install_yay
+	# shell prompt
+	command -v starship || yay -S starship --noconfirm && starship preset pastel-powerline -o ~/.config/starship.toml
+	# file manager
+	command -v ranger || yay -S ranger --noconfirm
+    command -v pavucontrol || yay -S pavucontrol --noconfirm
+    command -v jq || yay -S jq --noconfirm
+	# vim bootstrap
+	vim_bootstrap
+    # mpd bootstrap
+    mpd_bootstrap
+	# setup pacman with color
+	sudo sed -i -e 's/^#color/color/' /etc/pacman.conf
+    # set locale & LANG
+    sudo sed -i -e 's/^#zh_TW.UTF-8/zh_TW.UTF-8/' /etc/locale.gen && sudo locale-gen
+    sudo sed -i -e 's/^LANG=.*$/LANG=zh_TW.UTF-8/' /etc/locale.conf
+    # set Timezone
+    sudo timedatectl set-timezone Asia/Taipei
+    # set group
+    sudo gpasswd -a ${USER} input
+    # install virtualization tools
+    virtualization_tools
+    # install network tools
+    network_tools
+    # monitor tools
+    monitor_tools
+    # security tools
+    security_tools
+    # office tools
+    office_tools
+}
+
+archlinux_hyprland() {
+	archlinux_base_install
+	# hyprland usefull app
+	yay -S hyprpaper cliphist swaylock waybar thunar feh --noconfirm
+    sudo systemctl disable mpd --now
+	# fonts
+	yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-code-pro-fonts --noconfirm
+    yay -S waypipe --noconfirm
+	# file manager(thunar plugin)
+	command -v thunar-volman || yay -S thunar-volman thunar-archive-plugin thunar-media-tags-plugin gvfs gvfs-mtp gvfs-nfs gvfs-smb thunar-vcs-plugin gtkhash-thunar file-roller --noconfirm
+	# browser
+	command -v firefox || yay -S firefox firefox-i18n-zh-tw --noconfirm
+	# security
+	command -v gnome-keyring || yay -S gnome-keyring --noconfirm
+    # input
+    command -v fcitx || yay -S fcitx5 fcitx5-table-extra --noconfirm
+}
+
+#-------------------------------------------------------------------------------- 
+if [ "$system_type" == "Linux" ];then
+	archlinux=$(grep "NAME" /etc/os-release | grep -c "Arch Linux")
+	if [ "$archlinux" -ge 1 ];then
+		archlinux_hyprland
+	fi
+fi

@@ -1,0 +1,217 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "";
+    font-weight: bold;
+    font-size: 16px;
+    min-height: 0;
+}
+
+/* CSS 中可直接使用英文表示的 140 種顏色*/
+/* https://www.toodoo.com/db/color.html */
+
+@define-color text black;
+@define-color warning #fabd2f;
+@define-color critical #cc241d;
+@define-color mode #a89984;
+@define-color workspaces #66cccc;
+@define-color taskbar #99d8b9;
+@define-color cpu #98971a;
+@define-color temp #b8bb22;
+@define-color layout #689d6a;
+@define-color battery #3b8686;
+@define-color network #a8dba8;
+@define-color mpd #ff9966;
+@define-color time #ebdbb2;
+
+/*
+@define-color pulseaudio #8adeb0;
+@define-color clock #db7556;
+@define-color tray #ffcc99;
+*/
+
+/* 
+ * 碧湖藍   #90f1ef
+ * 櫻花粉   #f7d5df
+ * 香檳黃   #ffef9f
+ * 松花青   #c0f7a4
+ * 青瓷綠   #7bf1a8
+ */
+
+/*
+ * #d65596  #ca71c3 #98a2c6 #cabcaf #e8e0a2
+ */
+/* 由淺到深
+ * 藍色系   #edfdfc #dbfbfa #c9f8f7 #a4f4f2 #90f1ef #71edeb #6de5e  #67dbd
+ * 紅色系   #fbebef #f7d5df #f4c1d1 #f1acc2 #ef97b2 #ed83a2 #eb6c93 #ea5783
+ * 黃色系   #fffceb #fef8d6 #fdf6c0 #ffef9f #feea87 #fee45c #fddd33 #fbd534
+ * 青蘋果系 #f2fdec #e3fbdb #d7f9c4 #c0f7a4 #adf58  #91f35e #84f34f #7bec14
+ * 綠色系   #dafbe8 #b5f7cf #a3f5c2 #8ff3b5 #7bf1a8 #7aee93 #73df65 #69cb5c
+ */
+
+/* 粉嫩馬卡龍 */
+@define-color power #aab6fb;
+@define-color battery #ffacbb;
+@define-color bluetooth blue;
+@define-color pulseaudio #fed7dd;
+@define-color clock #99f2e6;
+@define-color tray #fffee1;
+
+/* -------------------------------------------------------------------------------- */
+#workspaces {
+    background-color: @workspaces;
+}
+
+#workspaces button {
+    color: white;
+}
+
+/* active 活動中，指該工作區中有視窗存在*/
+
+
+/* 有設定 persistent-workspaces 時 */
+/* persistent 持久存在的，指該工作區中預先建立，並存在著*/
+#workspaces button.persistent {
+    color: blue;
+}
+
+/* empty 空的，指該工作區中沒有視窗存在*/
+#workspaces button.empty {
+    color: gray;
+}
+
+/* special 特殊的 */
+#workspaces button.special {
+    color: red;
+}
+
+/* visible 可見的，指該工作區是可見的（多螢幕可以同時看到多個工作區） */
+#workspaces button.visible {
+    color: green;
+}
+
+/* active 活動中的，指該工作區是目前使用中的 */
+#workspaces button.active {
+    color: black;
+}
+
+/* -------------------------------------------------------------------------------- */
+
+#taskbar {
+    background-color: @taskbar;
+}
+
+/* -------------------------------------------------------------------------------- */
+#mpd {
+    background-color: @mpd;
+}
+
+/* -------------------------------------------------------------------------------- */
+#power {
+    background-color: @power;
+}
+/* -------------------------------------------------------------------------------- */
+#bettery {
+    background-color: @bettery;
+}
+/* -------------------------------------------------------------------------------- */
+#bluetooth {
+    background-color: @bluetooth;
+}
+/* -------------------------------------------------------------------------------- */
+#pulseaudio {
+    background-color: @pulseaudio;
+}
+/* -------------------------------------------------------------------------------- */
+#clock {
+    background-color: @clock;
+}
+/* -------------------------------------------------------------------------------- */
+#tray {
+    background-color: @tray;
+}
+
+#tray menu {
+    background-color: @tray;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .active {
+    background-color: @tray;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+/* -------------------------------------------------------------------------------- */
+
+#custom-rarrow1,
+#custom-rarrow2,
+#custom-rarrow3,
+#custom-rarrow4,
+#custom-rarrow5,
+#custom-rarrow6,
+#custom-rarrow7,
+#custom-rarrow8,
+#custom-rarrow9,
+#custom-rarrow10 {
+    font-size: 24px;
+}
+
+#custom-rarrow1 {
+    color: @workspaces;
+    background-color: @taskbar;
+}
+
+#custom-rarrow2 {
+    color: @taskbar;
+    background-color: @white;
+}
+/* -------------------------------------------------------------------------------- */
+
+#custom-larrow1,
+#custom-larrow2,
+#custom-larrow3,
+#custom-larrow4,
+#custom-larrow5,
+#custom-larrow6,
+#custom-larrow7,
+#custom-larrow8,
+#custom-larrow9,
+#custom-larrow10 {
+    font-size: 24px;
+}
+
+#custom-larrow1 {
+    color: @tray;
+    background-color: @clock;
+}
+
+#custom-larrow2 {
+    color: @clock;
+    background-color: @pulseaudio;
+}
+
+#custom-larrow3 {
+    color: @pulseaudio;
+    background-color: @bluetooth;
+}
+
+#custom-larrow4 {
+    color: @bluetooth;
+    background-color: @battery;
+}
+
+#custom-larrow5 {
+    color: @battery;
+    background-color: @power;
+}
+
+#custom-larrow6 {
+    color: @power;
+    background-color: @white;
+}
+
