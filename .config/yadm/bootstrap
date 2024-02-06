@@ -55,29 +55,45 @@ __END__
 
 virtualization_tools() {
     # KVM & QEMU
-    yay -S edk2-ovmf dmidecode libvirt openvswitch dnsmasq qemu-audio-spice qemu-chardev-spice qemu-hw-display-qxl qemu-hw-usb-host qemu-hw-usb-redirect qemu-hw-usb-smartcard qemu-img qemu-system-x86 qemu-system-x86-firmware virt-manager --noconfirm
+    # 虛擬化相關工具支持
+    yay -S edk2-ovmf dmidecode libvirt openvswitch dnsmasq qemu-audio-spice qemu-chardev-spice qemu-hw-display-qxl qemu-hw-usb-host qemu-hw-usb-redirect qemu-hw-usb-smartcard qemu-img qemu-system-x86 qemu-system-x86-firmware virt-manager virt-viewer libguestfs --noconfirm
     sudo gpasswd -a ${USER} libvirt
+    sudo systemctl enable ovs-vswitchd --now
 }
 
 system_tools() {
+    # bluez、bluez-utils 藍牙連接使用
+    # bash-completion bash 的命令補全工具
     yay -S bluez bluez-utils bash-completion --noconfirm
     sudo systemctl enable bluetooth --now
 }
 
 network_tools() {
+    # socat 取代 nc
+    # bind 提供 nslookup、dig
+    # ipset 簡化 iptables 群組
+    # mtr 取代 traceroute
     yay -S socat bind ipset mtr --noconfirm
 }
 
 monitor_tools() {
+    # btop 文字模式下的監控工具
     yay -S btop  --noconfirm
 }
 
 security_tools() {
-    yay -S seahorse --noconfirm
+    # seahorse gnome 的鑰匙圈工具
+    # libfido2 使用 fido key 或 ssh key 的型態是 ek29919-sk 時會用到
+    yay -S seahorse libfido2 --noconfirm
 }
 
 office_tools() {
+    # joplin 筆記工具
     yay -S joplin-appimage --noconfirm
+}
+
+nvidia_driver_install() {
+    yay -S nvidia-dkms --noconfirm
 }
 
 archlinux_base_install() {
@@ -103,15 +119,19 @@ archlinux_base_install() {
     sudo timedatectl set-timezone Asia/Taipei
     # set group
     sudo gpasswd -a ${USER} input
+
+
+    # install system tools
+    system_tools
     # install virtualization tools
     virtualization_tools
     # install network tools
     network_tools
-    # monitor tools
+    # install monitor tools
     monitor_tools
-    # security tools
+    # install security tools
     security_tools
-    # office tools
+    # install office tools
     office_tools
 }
 

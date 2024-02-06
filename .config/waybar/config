@@ -16,7 +16,8 @@
             "icon-size": 24,
             // "icon-theme": "Numix-Circle",
             "tooltip-format": "{title}",
-            "on-click": "activate",
+            // "on-click": "activate",
+            "on-click": "minimize-raise",
             "on-click-middle": "close",
             "ignore-list": []
             
