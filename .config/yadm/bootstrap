@@ -95,7 +95,9 @@ archlinux_base_install() {
     # mpd bootstrap
     mpd_bootstrap
 	# setup pacman with color
-	sudo sed -i -e 's/^#color/color/' /etc/pacman.conf
+	sudo sed -i -e 's/^#Color/Color/' /etc/pacman.conf
+    # setup pacman
+	sudo sed -i -e 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
     # set locale & LANG
     sudo sed -i -e 's/^#zh_TW.UTF-8/zh_TW.UTF-8/' /etc/locale.gen && sudo locale-gen
     sudo sed -i -e 's/^LANG=.*$/LANG=zh_TW.UTF-8/' /etc/locale.conf
@@ -103,6 +105,8 @@ archlinux_base_install() {
     sudo timedatectl set-timezone Asia/Taipei
     # set group
     sudo gpasswd -a ${USER} input
+    # install system tools
+    system_tools
     # install virtualization tools
     virtualization_tools
     # install network tools
